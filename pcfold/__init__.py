@@ -1,4 +1,4 @@
-"""Inference package for PKfold weights."""
+"""Inference package for PCfold weights."""
 
 __all__ = ["__version__"]
 

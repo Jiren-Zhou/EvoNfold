@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Install PKfold weights from a manifest, URL, tarball, or unpacked assets."""
+"""Install PCfold weights from a manifest, URL, tarball, or unpacked assets."""
 
 from __future__ import annotations
 
@@ -15,8 +15,8 @@ from urllib.parse import urlparse
 from urllib.request import urlopen
 
 
-DEFAULT_WEIGHT = "PKfold_test1.pt"
-DEFAULT_TARGET = Path("weights/pkfold.pt")
+DEFAULT_WEIGHT = "PCfold_test1.pt"
+DEFAULT_TARGET = Path("weights/pcfold.pt")
 
 
 def _sha256(path: Path) -> str:
@@ -180,7 +180,7 @@ def _install_manifest(root: Path, manifest_path: Path) -> None:
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
-            "Install a PKfold checkpoint. SOURCE may be a .pt file, a tarball "
+            "Install a PCfold checkpoint. SOURCE may be a .pt file, a tarball "
             "containing data/ and weights/, an unpacked assets directory, or a URL."
         )
     )

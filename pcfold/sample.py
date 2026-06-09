@@ -1,4 +1,4 @@
-"""Synthetic input for PKfold inference.
+"""Synthetic input for PCfold inference.
 
 The bundled record is generated from scratch and intentionally contains no
 database accession, family label, source coordinate, or real record.
@@ -6,7 +6,7 @@ database accession, family label, source coordinate, or real record.
 
 from __future__ import annotations
 
-from pkfold.features import InferenceRecord
+from pcfold.features import InferenceRecord
 
 
 def synthetic_record() -> InferenceRecord:

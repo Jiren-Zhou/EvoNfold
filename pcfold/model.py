@@ -1,4 +1,4 @@
-"""PKfold model definition and checkpoint loading.
+"""PCfold model definition and checkpoint loading.
 
 The released checkpoint stores only a model state dict and the small
 architecture descriptor required to rebuild it for inference.
@@ -103,7 +103,7 @@ class ModernResUNet2D(torch.nn.Module):
         return 0.5 * (logits + logits.transpose(-1, -2))
 
 
-class PKfoldModel(torch.nn.Module):
+class PCfoldModel(torch.nn.Module):
     def __init__(
         self,
         *,
@@ -137,16 +137,16 @@ def _model_config(payload: Mapping[str, Any]) -> dict[str, int]:
     }
 
 
-def load_model(checkpoint_path: str | Path, *, device: torch.device) -> PKfoldModel:
+def load_model(checkpoint_path: str | Path, *, device: torch.device) -> PCfoldModel:
     payload = torch.load(Path(checkpoint_path), map_location=device)
     if not isinstance(payload, Mapping):
         raise TypeError("checkpoint payload must be a mapping")
-    if str(payload.get("format")) != "pkfold.v1":
+    if str(payload.get("format")) != "pcfold.v1":
         raise ValueError("unsupported checkpoint format")
     state = payload.get("state_dict")
     if not isinstance(state, Mapping):
         raise ValueError("checkpoint is missing state_dict")
-    model = PKfoldModel(**_model_config(payload)).to(device)
+    model = PCfoldModel(**_model_config(payload)).to(device)
     model.load_state_dict(state, strict=True)
     model.eval()
     return model
