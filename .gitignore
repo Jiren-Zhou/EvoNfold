@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+build/
+dist/
+*.egg-info/
+uv.lock
+outputs/
+assets/
+weights/*.pt
+!weights/.gitkeep
