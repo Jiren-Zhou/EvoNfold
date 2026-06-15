@@ -5,6 +5,7 @@ description = "PCfold inference"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
+    "pyarrow>=15.0.0",
     "torch>=2.3.0",
 ]
 
