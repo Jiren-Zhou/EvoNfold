@@ -67,5 +67,12 @@ predicted_structure.ct
 run_summary.txt
 ```
 
+## Phylogenetic tree input
+
+PCfold accepts either a multiple sequence alignment (Stockholm format, `.sto`) alone or together with a corresponding phylogenetic tree.
+
+- If only an MSA is provided, the pipeline automatically infers a phylogenetic tree using the bundled FastTree implementation before downstream covariation analysis.
+- If a phylogenetic tree is provided, the pipeline uses the supplied tree directly and does not perform tree reconstruction.
+
 The outputs contain only the selected public record index, sequence length, and
 predicted base pairs/CT structure.
