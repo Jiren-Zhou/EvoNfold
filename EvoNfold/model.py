@@ -141,7 +141,7 @@ def load_model(checkpoint_path: str | Path, *, device: torch.device) -> EvoNfold
     payload = torch.load(Path(checkpoint_path), map_location=device)
     if not isinstance(payload, Mapping):
         raise TypeError("checkpoint payload must be a mapping")
-    if str(payload.get("format")) != "pcfold.v1":
+    if str(payload.get("format")) != "EvoNfold.v1":
         raise ValueError("unsupported checkpoint format")
     state = payload.get("state_dict")
     if not isinstance(state, Mapping):

@@ -10,12 +10,13 @@ import shutil
 import tarfile
 import tempfile
 import warnings
+import zipfile
 from pathlib import Path
 from urllib.parse import urlparse
 from urllib.request import urlopen
 
 
-DEFAULT_WEIGHT = "PCfold_test1.pt"
+DEFAULT_WEIGHT = "EvoNfold_test1.pt"
 DEFAULT_TARGET = Path("weights/EvoNfold.pt")
 
 
@@ -67,6 +68,18 @@ def _find_assets_root(path: Path) -> Path:
         if child.is_dir() and (child / "weights").is_dir():
             return child
     raise SystemExit(f"could not find an assets directory with weights/ under {path}")
+
+
+def _safe_extract_zip(zip_path: Path, target_dir: Path) -> None:
+    target_root = target_dir.resolve()
+    with zipfile.ZipFile(zip_path) as archive:
+        for member in archive.infolist():
+            member_target = (target_dir / member.filename).resolve()
+            try:
+                member_target.relative_to(target_root)
+            except ValueError as exc:
+                raise SystemExit(f"unsafe ZIP member path: {member.filename}") from exc
+        archive.extractall(target_dir)
 
 
 def _copy_file(source: Path, target: Path, expected_sha256: str | None = None) -> None:
@@ -132,10 +145,14 @@ def _install_source(
             print(f"installed checkpoint: {target.relative_to(root)}")
             return
 
-        if source.is_file() and tarfile.is_tarfile(source):
+        is_zip = source.is_file() and zipfile.is_zipfile(source)
+        if source.is_file() and (is_zip or tarfile.is_tarfile(source)):
             extracted = tmp_path / "extracted"
             extracted.mkdir()
-            _safe_extract_tar(source, extracted)
+            if is_zip:
+                _safe_extract_zip(source, extracted)
+            else:
+                _safe_extract_tar(source, extracted)
             _install_assets_package(
                 source=extracted,
                 root=root,
@@ -180,7 +197,7 @@ def _install_manifest(root: Path, manifest_path: Path) -> None:
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
-            "Install an EvoNfold checkpoint. SOURCE may be a .pt file, a tarball "
+            "Install an EvoNfold checkpoint. SOURCE may be a .pt file, a ZIP or tarball "
             "containing data/ and weights/, an unpacked assets directory, or a URL."
         )
     )

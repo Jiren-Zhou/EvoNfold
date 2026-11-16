@@ -5,7 +5,10 @@ EvoNfold is a reproducible RNA contact inference package. It contains the code n
 
 ## Naming and released assets
 
-The method and Python package are now named EvoNfold (formerly PCfold). This is a naming-only update: the model architecture, inference calculations and released weights are unchanged. The GitHub repository URL, Zenodo record and existing Code Ocean resources are retained. Published asset filenames, the `pcfold.v1` checkpoint format identifier and the `PCFOLD_ASSET_TAR` / `PCFOLD_ASSET_SHA` environment variables remain unchanged so the existing releases continue to work. The installed local checkpoint is now `weights/EvoNfold.pt`.
+The method, Python package, asset filenames and checkpoint format identifier
+use EvoNfold. The model architecture, inference calculations and weight tensor
+values are unchanged. This version expects the renamed asset package
+`EvoNfold_assets_20261117.zip` and checkpoint format `EvoNfold.v1`.
 
 ## Install
 
@@ -24,33 +27,35 @@ weights/EvoNfold.pt
 The reproducibility assets are deposited at:
 
 ```text
-https://zenodo.org/records/20603698
+https://zenodo.org/records/20604536
 ```
 
-For Code Ocean inference, download `PCfold_public_infer_20260615.tar.gz` from
-the Zenodo record. The expected SHA256 checksum is:
+For this code version, use the renamed `EvoNfold_assets_20261117.zip`
+package. The record URL above identifies the source assets; this code update
+does not upload or replace the Zenodo files. The expected ZIP SHA256 is:
 
 ```text
-cb8e55e6aa5592481ea625f77bd90bb39d5049f0fb315d173a0a8957c651e98d
+0d7581f4ef33b882d6cc0ddebeba0937803cb73216708f762e0371fbaa3bb14c
 ```
 
-The public inference asset contains only:
+The package contains public and five split-specific datasets and checkpoints.
+The public inference entry point uses:
 
 ```text
-data/PCfold_public.parquet
-weights/PCfold_public.pt
+EvoNfold_assets/data/EvoNfold_public.parquet
+EvoNfold_assets/weights/EvoNfold_public.pt
 ```
 
-The helper installs the asset tarball, verifies the checksum, and copies the
+The helper installs the asset ZIP, verifies the checksum, and copies the
 public checkpoint to `weights/EvoNfold.pt`:
 
 ```bash
-python scripts/fetch_weights.py /path/to/PCfold_public_infer_20260615.tar.gz --weight-name PCfold_public.pt --sha256 cb8e55e6aa5592481ea625f77bd90bb39d5049f0fb315d173a0a8957c651e98d
+python scripts/fetch_weights.py /path/to/EvoNfold_assets_20261117.zip --weight-name EvoNfold_public.pt --sha256 0d7581f4ef33b882d6cc0ddebeba0937803cb73216708f762e0371fbaa3bb14c
 ```
 
 ## Run
 
-For Code Ocean, upload `PCfold_public_infer_20260615.tar.gz` as a data asset
+For Code Ocean, upload `EvoNfold_assets_20261117.zip` as a data asset
 and run:
 
 ```bash
@@ -60,7 +65,7 @@ bash run.sh
 For a local check, set the asset path and output directory explicitly:
 
 ```bash
-PCFOLD_ASSET_TAR=/path/to/PCfold_public_infer_20260615.tar.gz RESULTS_DIR=outputs bash run.sh
+EvoNfold_ASSET_ZIP=/path/to/EvoNfold_assets_20261117.zip RESULTS_DIR=outputs bash run.sh
 ```
 
 The run writes:

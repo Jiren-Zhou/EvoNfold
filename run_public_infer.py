@@ -24,10 +24,10 @@ def _repo_root() -> Path:
 
 
 def _default_parquet(root: Path) -> Path:
-    candidates = sorted((root / "assets").glob("*/data/PCfold_public.parquet"))
+    candidates = sorted((root / "assets").glob("*/data/EvoNfold_public.parquet"))
     if candidates:
         return candidates[0]
-    return root / "assets" / "PCfold_public_infer" / "data" / "PCfold_public.parquet"
+    return root / "assets" / "EvoNfold_assets" / "data" / "EvoNfold_public.parquet"
 
 
 def _to_tuple(value: object, *, cast: type) -> tuple:
