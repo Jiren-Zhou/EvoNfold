@@ -1,4 +1,4 @@
-"""PCfold model definition and checkpoint loading.
+"""EvoNfold model definition and checkpoint loading.
 
 The released checkpoint stores only a model state dict and the small
 architecture descriptor required to rebuild it for inference.
@@ -103,7 +103,7 @@ class ModernResUNet2D(torch.nn.Module):
         return 0.5 * (logits + logits.transpose(-1, -2))
 
 
-class PCfoldModel(torch.nn.Module):
+class EvoNfoldModel(torch.nn.Module):
     def __init__(
         self,
         *,
@@ -137,7 +137,7 @@ def _model_config(payload: Mapping[str, Any]) -> dict[str, int]:
     }
 
 
-def load_model(checkpoint_path: str | Path, *, device: torch.device) -> PCfoldModel:
+def load_model(checkpoint_path: str | Path, *, device: torch.device) -> EvoNfoldModel:
     payload = torch.load(Path(checkpoint_path), map_location=device)
     if not isinstance(payload, Mapping):
         raise TypeError("checkpoint payload must be a mapping")
@@ -146,7 +146,7 @@ def load_model(checkpoint_path: str | Path, *, device: torch.device) -> PCfoldMo
     state = payload.get("state_dict")
     if not isinstance(state, Mapping):
         raise ValueError("checkpoint is missing state_dict")
-    model = PCfoldModel(**_model_config(payload)).to(device)
+    model = EvoNfoldModel(**_model_config(payload)).to(device)
     model.load_state_dict(state, strict=True)
     model.eval()
     return model

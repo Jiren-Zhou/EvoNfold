@@ -1,4 +1,4 @@
-"""Run fixed PCfold inference on the bundled synthetic input."""
+"""Run fixed EvoNfold inference on the bundled synthetic input."""
 
 from __future__ import annotations
 
@@ -6,10 +6,10 @@ from pathlib import Path
 
 import torch
 
-from pcfold.features import build_pair_features
-from pcfold.model import load_model
-from pcfold.postprocess import decode_pairs
-from pcfold.sample import synthetic_record
+from EvoNfold.features import build_pair_features
+from EvoNfold.model import load_model
+from EvoNfold.postprocess import decode_pairs
+from EvoNfold.sample import synthetic_record
 
 
 def _repo_root() -> Path:
@@ -22,10 +22,10 @@ def _format_pairs(pairs: list[tuple[int, int]]) -> str:
 
 def main() -> None:
     root = _repo_root()
-    checkpoint = root / "weights" / "pcfold.pt"
+    checkpoint = root / "weights" / "EvoNfold.pt"
     if not checkpoint.exists():
         raise SystemExit(
-            "Missing weights/pcfold.pt. "
+            "Missing weights/EvoNfold.pt. "
             "Place the Zenodo weight file there or run scripts/fetch_weights.py after the Zenodo URL is configured."
         )
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

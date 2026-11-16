@@ -1,4 +1,4 @@
-"""Build fixed pair-map features for PCfold inference.
+"""Build fixed pair-map features for EvoNfold inference.
 
 This module turns a single RNA sequence plus optional covariance-prior edges
 into the 17-channel pair tensor expected by the released model.

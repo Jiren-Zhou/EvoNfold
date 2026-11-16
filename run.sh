@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Code Ocean run script for PCfold public benchmark inference.
+# Code Ocean run script for EvoNfold public benchmark inference.
 # It installs the public-only assets, runs one inference case, and writes
 # predicted structures to the platform results directory.
 
@@ -17,10 +17,10 @@ python run_public_infer.py \
   --output-dir "$RESULTS_DIR"
 
 cat > "$RESULTS_DIR/run_summary.txt" <<EOF
-PCfold public benchmark inference completed
+EvoNfold public benchmark inference completed
 asset: $(basename "$ASSET_TAR")
 sha256: $ASSET_SHA
-checkpoint: weights/pcfold.pt
+checkpoint: weights/EvoNfold.pt
 outputs:
   $RESULTS_DIR/predicted_structure.tsv
   $RESULTS_DIR/predicted_structure.ct

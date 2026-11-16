@@ -1,4 +1,4 @@
-"""Fixed postprocessing for PCfold inference.
+"""Fixed postprocessing for EvoNfold inference.
 
 This module uses one fixed decode path: all concrete RNA base types can pair,
 N-containing pairs are masked out, and a contact projection is applied before

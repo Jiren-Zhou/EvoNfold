@@ -1,7 +1,7 @@
-"""Run PCfold inference on one record from the public benchmark parquet.
+"""Run EvoNfold inference on one record from the public benchmark parquet.
 
 This script is the Code Ocean entry point after the assets have been installed:
-it reads a single sequence plus covariance-prior edges, runs PCfold, and writes
+it reads a single sequence plus covariance-prior edges, runs EvoNfold, and writes
 the predicted structure as pair indices and CT format without computing metrics.
 """
 
@@ -14,9 +14,9 @@ from typing import Iterable
 import pyarrow.parquet as pq
 import torch
 
-from pcfold.features import InferenceRecord, build_pair_features, normalize_sequence
-from pcfold.model import load_model
-from pcfold.postprocess import decode_pairs
+from EvoNfold.features import InferenceRecord, build_pair_features, normalize_sequence
+from EvoNfold.model import load_model
+from EvoNfold.postprocess import decode_pairs
 
 
 def _repo_root() -> Path:
@@ -88,9 +88,9 @@ def _write_ct(path: Path, *, record: InferenceRecord, pairs: list[tuple[int, int
 
 def _parse_args() -> argparse.Namespace:
     root = _repo_root()
-    parser = argparse.ArgumentParser(description="Run PCfold on one public benchmark record.")
+    parser = argparse.ArgumentParser(description="Run EvoNfold on one public benchmark record.")
     parser.add_argument("--parquet", type=Path, default=_default_parquet(root), help="public benchmark parquet")
-    parser.add_argument("--checkpoint", type=Path, default=root / "weights" / "pcfold.pt", help="installed checkpoint")
+    parser.add_argument("--checkpoint", type=Path, default=root / "weights" / "EvoNfold.pt", help="installed checkpoint")
     parser.add_argument("--record-index", type=int, default=0, help="0-based row index to infer")
     parser.add_argument("--output-dir", type=Path, default=root / "outputs", help="directory for prediction outputs")
     return parser.parse_args()

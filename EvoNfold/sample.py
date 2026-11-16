@@ -1,4 +1,4 @@
-"""Synthetic input for PCfold inference.
+"""Synthetic input for EvoNfold inference.
 
 The bundled record is generated from scratch and intentionally contains no
 database accession, family label, source coordinate, or real record.
@@ -6,7 +6,7 @@ database accession, family label, source coordinate, or real record.
 
 from __future__ import annotations
 
-from pcfold.features import InferenceRecord
+from EvoNfold.features import InferenceRecord
 
 
 def synthetic_record() -> InferenceRecord:
